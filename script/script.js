@@ -10,6 +10,16 @@ async function showName() {
   }
 }
 
-window.onload = () => {
-  showName();
-};
+async function takeName() {
+  let inputNickname = document.querySelector("#nickname").value;
+  let inputMessaggio = document.querySelector("#messaggio").value;
+  let obj = { username: inputNickname, message: inputMessaggio };
+  let stringify = JSON.stringify(obj);
+  await fetch("http://194.60.87.41:3000/newmsg", {
+    method: "POST",
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    body: stringify,
+  })
+    .then((response) => response.json())
+    .then((response) => console.log(JSON.stringify(response)));
+}
